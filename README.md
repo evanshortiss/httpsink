@@ -27,13 +27,17 @@ httpsink --port 3000 --host '0.0.0.0'
 ```js
 const sinkhole = require('httpsink')
 
-// Create a sinkhole that listens on port 8080
-const server = sinkhole({
-  port: 8080
-})
+async function main () {
+  // Create a sinkhole that listens on port 8080
+  const server = await sinkhole({
+    port: 8080
+  })
 
-// It's a regular http.Server instance, so call close() when you're done
-server.close()
+  // ...sometime later call server.close() when you're done
+  server.close()
+}
+
+main()
 ```
 
 ### Reponse Format
