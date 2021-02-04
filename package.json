@@ -1,0 +1,38 @@
+{
+  "name": "httpsink",
+  "version": "1.0.0",
+  "description": "A sinkhole for HTTP requests",
+  "bin": "bin/httpsink.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/"
+  },
+  "keywords": [
+    "http",
+    "sink",
+    "sinkhole"
+  ],
+  "author": "Evan Shortiss",
+  "prettier": {
+    "trailingComma": "none",
+    "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged --pattern \"**/*.js\""
+    }
+  },
+  "license": "MIT",
+  "dependencies": {
+    "barelog": "^0.2.0",
+    "meow": "^9.0.0",
+    "nanoid": "^3.1.20"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.25",
+    "got": "^11.8.1",
+    "husky": "^4.3.8",
+    "pretty-quick": "^3.1.0",
+    "tape": "^5.1.1"
+  }
+}
