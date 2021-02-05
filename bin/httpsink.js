@@ -33,7 +33,20 @@ const cli = meow(
 
 sinkhole(cli.flags)
   .then((server) => {
-    log(`HTTP Sinkhole listening on port ${server.address().port}...\n`);
+    log(
+      `HTTP Sinkhole listening on port ${server.address().address}:${
+        server.address().port
+      }\n`
+    );
+
+    const exit = () =>
+      server.close(() => {
+        log('\nHTTP Sinkhole stopped');
+        process.exit();
+      });
+
+    process.on('SIGINT', exit);
+    process.on('SIGTERM', exit);
   })
   .catch((e) => {
     log(`Server was unable to start listening. Reason:\n`);

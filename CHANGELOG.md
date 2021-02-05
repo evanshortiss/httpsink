@@ -1,3 +1,7 @@
+# 1.1.1 (06/02/2021)
+
+* Handle process kill signals.
+
 # 1.1.0 (05/02/2021)
 
 * Add to `totalBytesSize` and `ip` to response JSON.

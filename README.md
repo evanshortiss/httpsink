@@ -23,6 +23,15 @@ npm install -g httpsink
 httpsink --port 3000 --host '0.0.0.0'
 ```
 
+### Docker CLI
+
+Here's a sample command that exposes the sinkhole on port 8080.
+
+```
+docker run -p 8080:8080 --rm --entrypoint /bin/sh node:14-alpine -c 'npx httpsink --host "0.0.0.0" --port 8080'
+```
+
+
 ### Module
 
 ```js
@@ -60,9 +69,12 @@ Each request receives the same response format:
   "resp": "2021-02-04T19:25:03.744Z",
 
   // Bytes read for a request that sends a body
-  "bytesRead": 0
+  "bodyBytesSize": 0
 
-  // Method and path that was requested
+  // Bytes read for the entire HTTP transmission
+  "totalBytesSize": 124
+
+  // Method and URL that was requested
   "method":"POST",
   "url":"/json-test"
 }
