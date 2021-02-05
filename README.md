@@ -1,6 +1,7 @@
 # HTTP Sink
 
-A trivial HTTP Sinkhole.
+A trivial HTTP Sinkhole. Always returns a 200 OK and JSON response body with
+request details.
 
 ## Usage
 
@@ -40,12 +41,15 @@ async function main () {
 main()
 ```
 
-### Reponse Format
+### Response Format
 
 Each request receives the same response format:
 
 ```js
 {
+  // IP the server determines to be the origin of your request
+  "ip": "127.0.0.1",
+
   // Unique ID generated for this request
   "uuid": "pDo-u-eOpxiVH_15aSV05",
 
@@ -60,6 +64,6 @@ Each request receives the same response format:
 
   // Method and path that was requested
   "method":"POST",
-  "path":"/json-test"
+  "url":"/json-test"
 }
 ```

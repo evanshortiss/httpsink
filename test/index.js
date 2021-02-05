@@ -54,24 +54,33 @@ test('sinkhole response format and time calculation', (t) => {
           res.setEncoding('utf8');
           res.on('data', (chunk) => (chunks += chunk));
           res.on('end', () => {
-            const { uuid, recv, resp, bytesRead, method, path } = JSON.parse(
-              chunks
-            );
+            const {
+              uuid,
+              ip,
+              recv,
+              resp,
+              bodyBytesSize,
+              totalBytesSize,
+              method,
+              url
+            } = JSON.parse(chunks);
 
+            t.isEqual(ip, '127.0.0.1');
+            t.isEqual(method, 'POST');
+            t.isEqual(url, '/');
             t.isEqual(typeof uuid, 'string');
             t.isEqual(typeof recv, 'string');
             t.isEqual(typeof resp, 'string');
-            t.isEqual(typeof method, 'string');
-            t.isEqual(typeof path, 'string');
-            t.isEqual(typeof bytesRead, 'number');
+            t.isEqual(typeof bodyBytesSize, 'number');
+            t.isEqual(typeof totalBytesSize, 'number');
 
             // Verify the request duration was close to the specified duration
-            // Timers are not accurate, so give 15% leeway. Yes. 15%!
+            // Timers are not accurate, so give 15% leeway. Yes, 15% variance!
             const time = new Date(resp).getTime() - new Date(recv).getTime();
             t.ok(time >= requestDurationMs * 0.85);
 
             // Bytes read should be equal to those sent
-            t.isEqual(bytesRead, requestByteCount);
+            t.isEqual(bodyBytesSize, requestByteCount);
 
             server.close((err) => t.end(err));
           });

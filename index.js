@@ -26,15 +26,15 @@ module.exports = (options) => {
   let { port = 8080, host = 'localhost' } = options;
 
   const server = http.createServer((req, res) => {
+    const recv = new Date().toJSON();
     const uuid = nanoid();
     const { method, url } = req;
-    let bytesRead = 0;
-    let recv = new Date().toJSON();
+    let bodyBytesSize = 0;
 
     log(`(recv ${uuid}) ${req.method} ${req.url}`);
 
     req.on('data', (chunk) => {
-      bytesRead += Buffer.byteLength(chunk);
+      bodyBytesSize += Buffer.byteLength(chunk);
     });
 
     req.on('error', (e) => {
@@ -44,15 +44,19 @@ module.exports = (options) => {
 
     req.on('end', () => {
       log(`(resp ${uuid}) ${req.method} ${req.url}`);
+      res.setHeader('content-type', 'application/json');
       res.writeHead(200);
+      req.socket.bytesRead;
       res.end(
         JSON.stringify({
+          ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
           method,
-          path: url,
+          url,
           uuid,
           recv,
           resp: new Date().toJSON(),
-          bytesRead
+          bodyBytesSize,
+          totalBytesSize: req.socket.bytesRead
         })
       );
     });
