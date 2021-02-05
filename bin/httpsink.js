@@ -41,7 +41,7 @@ sinkhole(cli.flags)
 
     const exit = () =>
       server.close(() => {
-        log('\nHTTP Sinkhole stopped');
+        log('HTTP Sinkhole stopped');
         process.exit();
       });
 

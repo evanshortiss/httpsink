@@ -1,4 +1,8 @@
-# 1.1.1 (06/02/2021)
+# 1.1.1 (05/02/2021)
+
+* Fix shutdown log format.
+
+# 1.1.1 (05/02/2021)
 
 * Handle process kill signals.
 
