@@ -65,6 +65,7 @@ test('sinkhole response format and time calculation', (t) => {
               url
             } = JSON.parse(chunks);
 
+            t.isEqual(res.headers['content-type'], 'application/json');
             t.isEqual(ip, '127.0.0.1');
             t.isEqual(method, 'POST');
             t.isEqual(url, '/');
