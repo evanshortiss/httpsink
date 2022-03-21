@@ -45,8 +45,8 @@ module.exports = (options) => {
     req.on('end', () => {
       log(`(resp ${uuid}) ${req.method} ${req.url}`);
       res.setHeader('content-type', 'application/json');
+      res.setHeader('connection', 'close');
       res.writeHead(200);
-      req.socket.bytesRead;
       res.end(
         JSON.stringify({
           ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,

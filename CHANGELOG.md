@@ -1,3 +1,8 @@
+
+# 1.2.0 (21/03/2022)
+
+* Set `connection: close` header to speed up HTTP `server.close()`.
+
 # 1.1.1 (05/02/2021)
 
 * Fix shutdown log format.
