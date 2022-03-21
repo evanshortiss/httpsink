@@ -23,11 +23,21 @@ npm install -g httpsink
 httpsink --port 3000 --host '0.0.0.0'
 ```
 
-### Docker CLI
+### Docker via Pre-built Image
 
-Here's a sample command that exposes the sinkhole on port 8080.
+Exposes the sinkhole on port 8080:
 
+```bash
+docker run --rm -p 8080:8080 quay.io/evanshortiss/httpsink
 ```
+
+You can specify a version tag if desired.
+
+### Docker via npx
+
+Uses npx to download the latest version of `httpsink`, and exposes the sinkhole on port 8080:
+
+```bash
 docker run -p 8080:8080 --rm --entrypoint /bin/sh node:14-alpine -c 'npx httpsink --host "0.0.0.0" --port 8080'
 ```
 
