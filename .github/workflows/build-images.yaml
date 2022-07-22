@@ -28,7 +28,7 @@ jobs:
         with:
           context: .
           platforms: linux/amd64
-          tags: evanshortiss/httpsink:${{ github.event.release.tag_name }}
+          tags: quay.io/evanshortiss/httpsink:${{ github.event.release.tag_name }}
       - 
         name: Push To quay.io
         id: push-to-quay
