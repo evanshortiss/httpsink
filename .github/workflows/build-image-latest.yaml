@@ -1,3 +1,5 @@
+
+name: Build and Push (latest)
 on:
   push:
     branches:
@@ -5,25 +7,30 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Build and push latest image
+    runs-on: ubuntu-20.04
+
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Build Image (linux/amd64)
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          platforms: linux/amd64
-          tags: quay.io/evanshortiss/httpsink:latest
-      - 
-        name: Push To quay.io
-        id: push-to-quay
-        uses: redhat-actions/push-to-registry@v2
-        with:
-          image: quay.io/evanshortiss/httpsink
-          tags: latest
-          registry: quay.io
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+    - uses: actions/checkout@v2
+
+    - name: Build Image
+      id: build-image
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: httpsink
+        tags: latest
+        containerfiles: |
+          ./Dockerfile
+
+    - name: Push To quay.io
+      id: push-to-quay
+      uses: redhat-actions/push-to-registry@v2
+      with:
+        image: ${{ steps.build-image.outputs.image }}
+        tags: ${{ steps.build-image.outputs.tags }}
+        registry: quay.io/evanshortiss
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - name: Print image url
+      run: echo "Image pushed to ${{ steps.push-to-quay.outputs.registry-paths }}"
