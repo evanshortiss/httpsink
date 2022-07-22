@@ -1,3 +1,6 @@
+# 1.3.0 (22/07/2022)
+
+* Add `hostname` to response JSON payload.
 
 # 1.2.0 (21/03/2022)
 
