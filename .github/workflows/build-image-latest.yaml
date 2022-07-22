@@ -1,0 +1,28 @@
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Build Image (linux/amd64)
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          platforms: linux/amd64
+          tags: quay.io/evanshortiss/httpsink:latest
+      - 
+        name: Push To quay.io
+        id: push-to-quay
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: quay.io/evanshortiss/httpsink
+          tags: latest
+          registry: quay.io
+          username: evanshortiss
+          password: ${{ secrets.REGISTRY_PASSWORD }}
