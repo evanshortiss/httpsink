@@ -25,5 +25,5 @@ jobs:
           image: quay.io/evanshortiss/httpsink
           tags: latest
           registry: quay.io
-          username: evanshortiss
+          username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
