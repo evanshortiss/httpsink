@@ -63,7 +63,8 @@ test('sinkhole response format and time calculation', (t) => {
               totalBytesSize,
               method,
               url,
-              hostname
+              hostname,
+              version
             } = JSON.parse(chunks);
 
             t.isEqual(res.headers['content-type'], 'application/json');
@@ -76,6 +77,7 @@ test('sinkhole response format and time calculation', (t) => {
             t.isEqual(typeof bodyBytesSize, 'number');
             t.isEqual(typeof totalBytesSize, 'number');
             t.isEqual(typeof hostname, 'string');
+            t.isEqual(typeof version, 'string');
 
             // Verify the request duration was close to the specified duration
             // Timers are not accurate, so give 15% leeway. Yes, 15% variance!

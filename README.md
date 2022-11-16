@@ -86,6 +86,12 @@ Each request receives the same response format:
 
   // Method and URL that was requested
   "method":"POST",
-  "url":"/json-test"
+  "url":"/json-test",
+
+  // Hostname of the host (e.g a Pod hostname in Kubernetes)
+  "hostname": "httpsink-85d65bfdd8-429kb",
+
+  // Version of the httpsink module being run
+  "version": "1.4.0"
 }
 ```

@@ -4,6 +4,7 @@ const http = require('http');
 const log = require('barelog');
 const { nanoid } = require('nanoid');
 const hostname = require('os').hostname();
+const { version } = require('./package.json')
 
 /**
  * @typedef {Object} SinkHoleOptions
@@ -58,7 +59,8 @@ module.exports = (options) => {
           resp: new Date().toJSON(),
           bodyBytesSize,
           totalBytesSize: req.socket.bytesRead,
-          hostname
+          hostname,
+          version
         })
       );
     });
