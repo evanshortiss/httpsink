@@ -2,7 +2,6 @@
 
 const http = require('http');
 const log = require('barelog');
-const { nanoid } = require('nanoid');
 const hostname = require('os').hostname();
 const { version } = require('./package.json')
 
@@ -17,13 +16,15 @@ const { version } = require('./package.json')
  * @param {SinkHoleOptions} options
  * @returns {Promise<http.Server>}
  */
-module.exports = (options) => {
+module.exports = async (options) => {
   if (!options) {
     options = {
       host: 'localhost',
       port: 8080
     };
   }
+
+  const { nanoid } = await import('nanoid')
 
   let { port = 8080, host = 'localhost' } = options;
 

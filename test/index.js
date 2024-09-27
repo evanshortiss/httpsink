@@ -6,7 +6,9 @@ const sinkhole = require('../index');
 const { randomBytes } = require('crypto');
 
 test('create a sinkhole listening on 127.0.0.1:8080', (t) => {
-  sinkhole()
+  sinkhole({
+    host: '127.0.0.1'
+  })
     .then((server) => {
       t.ok(server);
       t.equal(server.address().port, 8080);
@@ -35,7 +37,9 @@ test('create a sinkhole listening on 0.0.0.0:3000', (t) => {
 });
 
 test('sinkhole response format and time calculation', (t) => {
-  sinkhole()
+  sinkhole({
+    host: '127.0.0.1'
+  })
     .then((server) => {
       const requestByteCount = 50;
       const requestDurationMs = 25;

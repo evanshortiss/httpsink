@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/nodejs-16-minimal
+FROM registry.access.redhat.com/ubi8/nodejs-18-minimal
 
 COPY package*.json .
 
